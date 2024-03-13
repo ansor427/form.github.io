@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/lib/browser.min.js"></script>
+</head>
+<body>
+    <h2>Formulir</h2>
+    <form id="myForm" method="post">
+        <label for="nama">Nama:</label><br>
+        <input type="text" id="nama" name="nama"><br><br>
+
+        <label for="" id="angkatan">Angkatan:</label><br>
+        <input type="text" id="angkatan" name="angkatan" placeholder="1, 2, 3, 4, 5, 6, lainnya">
+
+        <button onclick="generateQR()">Buar QR</button> 
+    </form>
+    <div id="qrCode"></div>
+    <a href="" id="downloadLink" download="qrcode.png" style="display: none;">Download QR Code</a>
+    <script>
+        function generateQR() {
+            var nama = document.getElementById("nama").value;
+            var angkatan = document.getElementById("angkatan").value;
+            var data = "Nama: " + nama + "\Angkatan: " + angkatan;
+            var qrDiv = document.getElementById("qrCode");
+            qrCodeDiv.innerHTML = "";
+            var qrCode = new QRCode(qrCodeDiv, {
+                Text: data,
+                width: 200,
+                height: 200
+            });
+
+            //download qr
+            var downloadLink = document.getElementById("downloadLink");
+            downloadLink.href = qrCodeDiv.firstChild.toDataURL("image/png");
+            downloadLink.download = "qrcode.png"
+            downloadLink.style.display = "block"; 
+        }
+    </script>
+</body>
+</html>
